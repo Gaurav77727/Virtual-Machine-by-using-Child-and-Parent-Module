@@ -23,8 +23,8 @@ resource "azurerm_linux_virtual_machine" "VM" {
   resource_group_name             = "Simple-RG"
   location                        = "West US"
   size                            = "Standard_F2"
-  admin_username                  = "adminuser"  # key vault ke data ko use krne ke liye key vault data source and two data source for key vault secrest
-  admin_password                  = "Admin@1234567"
+  admin_username                  = data.azurerm_key_vault_secret.kv-username.value
+  admin_password                  = data.azurerm_key_vault_secret.kv-password.value
   disable_password_authentication = false # 👈 if we use user and password insted of ssh key
   network_interface_ids           = [azurerm_network_interface.NIC.id, ]
 
